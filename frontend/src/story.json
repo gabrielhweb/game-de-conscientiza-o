@@ -1,0 +1,77 @@
+[
+  {
+    "id": "cena_1",
+    "tipo": "situacao",
+    "texto": "Ana, casada com João há 5 anos, percebeu que ele começou a controlar todo o dinheiro da casa. Ele tomou seus cartões de crédito dizendo que ela não sabe administrar. Ele também a proibiu de trabalhar, afirmando que o lugar dela é em casa cuidando dos filhos. O que Ana deve fazer?",
+    "opcoes": [
+      {
+        "texto": "Aceitar a situação, pois ele é o provedor da casa e no fundo sabe o que é melhor.",
+        "proximaCenaId": "cena_2",
+        "efeito": {
+          "autonomia": -1,
+          "justica": -1
+        }
+      },
+      {
+        "texto": "Reconhecer que isso é violência patrimonial, negar-se a entregar os cartões e procurar ajuda especializada.",
+        "proximaCenaId": "cena_3",
+        "efeito": {
+          "conhecimento": 1,
+          "autonomia": 1,
+          "redeDeApoio": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "cena_2",
+    "tipo": "alerta",
+    "texto": "Ana tentou conversar com sua família sobre a situação, mas foi desencorajada. Disseram que 'em briga de marido e mulher não se mete a colher' e que ela deveria ter paciência para não acabar com o casamento. Como ela reage?",
+    "opcoes": [
+      {
+        "texto": "Acreditar na família, aceitar que é 'normal' e continuar em silêncio.",
+        "proximaCenaId": "fim_negativo",
+        "efeito": {
+          "redeDeApoio": -1,
+          "respeito": -1
+        }
+      },
+      {
+        "texto": "Ignorar o julgamento familiar e buscar apoio na central de atendimento à mulher (Ligue 180).",
+        "proximaCenaId": "cena_3",
+        "efeito": {
+          "redeDeApoio": 2,
+          "conhecimento": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "cena_3",
+    "tipo": "protecao",
+    "texto": "Ao ligar para o 180, Ana é orientada e encaminhada para um Centro de Referência de Atendimento à Mulher (CRAM). Lá, ela recebe suporte psicológico e jurídico para lidar com a situação com segurança.",
+    "opcoes": [
+      {
+        "texto": "Seguir com as orientações, pedir uma medida protetiva e buscar sua independência financeira.",
+        "proximaCenaId": "fim_positivo",
+        "efeito": {
+          "justica": 2,
+          "autonomia": 2,
+          "respeito": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "fim_positivo",
+    "tipo": "conhecimento",
+    "texto": "Parabéns! Você guiou a Ana para um caminho de libertação e proteção. É fundamental reconhecer todas as formas de violência (física, psicológica, moral, sexual e patrimonial) e buscar a rede de apoio adequada. A Lei Maria da Penha existe para proteger você.",
+    "opcoes": []
+  },
+  {
+    "id": "fim_negativo",
+    "tipo": "conhecimento",
+    "texto": "Infelizmente, a falta de conhecimento e de apoio manteve Ana presa no ciclo de violência. Lembre-se: violência patrimonial e psicológica também são crimes previstos na Lei Maria da Penha. Nunca hesite em buscar ajuda no 180.",
+    "opcoes": []
+  }
+]

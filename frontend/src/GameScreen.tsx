@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import storyData from './story.json';
 
 interface Simbolos {
@@ -18,11 +18,12 @@ interface Opcao {
 interface Cena {
   id: string;
   tipo: 'situacao' | 'protecao' | 'alerta' | 'conhecimento';
+  imagem?: string;
   texto: string;
   opcoes: Opcao[];
 }
 
-const GameScreen: React.FC = () => {
+const GameScreen = () => {
   const [cenaAtual, setCenaAtual] = useState<Cena | null>(null);
   const [simbolos, setSimbolos] = useState<Simbolos>({
     redeDeApoio: 0,
@@ -34,6 +35,7 @@ const GameScreen: React.FC = () => {
   const [nome, setNome] = useState('');
   const [finalizado, setFinalizado] = useState(false);
   const [loadingReq, setLoadingReq] = useState(false);
+  const [mascoteState, setMascoteState] = useState<'neutro' | 'feliz' | 'triste'>('neutro');
   
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
@@ -44,6 +46,21 @@ const GameScreen: React.FC = () => {
   }, []);
 
   const handleEscolha = (opcao: Opcao) => {
+    const ganhouTotal = 
+      (opcao.efeito.redeDeApoio || 0) + 
+      (opcao.efeito.justica || 0) + 
+      (opcao.efeito.conhecimento || 0) + 
+      (opcao.efeito.respeito || 0) + 
+      (opcao.efeito.autonomia || 0);
+
+    if (ganhouTotal > 0) {
+      setMascoteState('feliz');
+    } else if (ganhouTotal < 0) {
+      setMascoteState('triste');
+    } else {
+      setMascoteState('neutro');
+    }
+
     setSimbolos(prev => ({
       redeDeApoio: prev.redeDeApoio + (opcao.efeito.redeDeApoio || 0),
       justica: prev.justica + (opcao.efeito.justica || 0),
@@ -99,7 +116,7 @@ const GameScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-4 md:p-8 flex flex-col items-center">
-      <div className="w-full max-w-3xl bg-slate-800 rounded-xl p-4 mb-8 shadow-lg border border-slate-700 flex flex-wrap gap-4 justify-between text-sm md:text-base">
+      <div className="w-full max-w-4xl bg-slate-800 rounded-xl p-4 mb-6 shadow-lg border border-slate-700 flex flex-wrap gap-4 justify-between text-sm md:text-base">
         <div className="flex flex-col items-center">
           <span className="text-pink-400 font-bold uppercase text-xs tracking-wider">Apoio</span>
           <span className="text-2xl font-black">{simbolos.redeDeApoio}</span>
@@ -122,56 +139,79 @@ const GameScreen: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-3xl bg-slate-800 rounded-2xl p-6 md:p-10 shadow-2xl border border-slate-700 transition-all">
-        <div className="mb-6 flex items-center gap-3">
-          <span className="px-3 py-1 bg-slate-700 rounded-full text-xs font-bold uppercase tracking-widest text-slate-300">
-            {cenaAtual.tipo}
-          </span>
+      <div className="w-full max-w-4xl flex flex-col md:flex-row gap-6">
+        
+        <div className="flex flex-col w-full md:w-1/3 gap-4">
+          <div className="bg-slate-800 rounded-2xl p-4 flex justify-center items-center shadow-lg border border-slate-700 h-48 md:h-64 transition-all">
+             <img 
+               src={`/assets/coelho_${mascoteState}.jpg`} 
+               alt="Mascote" 
+               className="h-full object-contain rounded-xl"
+             />
+          </div>
+          
+          {cenaAtual.imagem && (
+            <div className="bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-700 transition-all flex items-center justify-center">
+               <img 
+                 src={cenaAtual.imagem} 
+                 alt="Cena atual" 
+                 className="w-full object-cover"
+               />
+            </div>
+          )}
+        </div>
+
+        <div className="w-full md:w-2/3 bg-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl border border-slate-700 flex flex-col">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="px-3 py-1 bg-slate-700 rounded-full text-xs font-bold uppercase tracking-widest text-slate-300">
+              {cenaAtual.tipo}
+            </span>
+          </div>
+          
+          <p className="text-lg md:text-xl leading-relaxed mb-8 text-slate-200">
+            {cenaAtual.texto}
+          </p>
+
+          {!finalizado ? (
+            <div className="flex flex-col gap-4 mt-auto">
+              {cenaAtual.opcoes.map((opcao, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleEscolha(opcao)}
+                  className="w-full text-left p-4 md:p-5 rounded-xl bg-slate-700/50 hover:bg-slate-700 transition-colors border border-slate-600 hover:border-pink-500 focus:outline-none"
+                >
+                  {opcao.texto}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-auto flex flex-col items-center bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+              <h2 className="text-3xl font-black mb-2 text-white text-center">Jornada Concluída!</h2>
+              <p className="mb-6 text-slate-300 text-center">
+                Você acumulou um total de <span className="text-2xl font-bold text-pink-500">{calcularTotal()}</span> Símbolos de Proteção.
+              </p>
+              
+              <div className="w-full flex flex-col gap-3">
+                <input 
+                  type="text" 
+                  placeholder="Seu nome ou apelido" 
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  className="w-full p-4 rounded-lg bg-slate-800 border border-slate-600 text-white focus:outline-none focus:border-pink-500 transition-colors"
+                  maxLength={20}
+                />
+                <button 
+                  onClick={salvarRanking}
+                  disabled={loadingReq}
+                  className="w-full p-4 bg-pink-600 hover:bg-pink-500 disabled:bg-slate-700 disabled:text-slate-500 text-white rounded-lg font-bold transition-colors"
+                >
+                  {loadingReq ? 'Salvando...' : 'Salvar no Ranking'}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
         
-        <p className="text-lg md:text-xl leading-relaxed mb-10 text-slate-200">
-          {cenaAtual.texto}
-        </p>
-
-        {!finalizado ? (
-          <div className="flex flex-col gap-4">
-            {cenaAtual.opcoes.map((opcao, index) => (
-              <button
-                key={index}
-                onClick={() => handleEscolha(opcao)}
-                className="w-full text-left p-5 rounded-xl bg-slate-700/50 hover:bg-slate-700 transition-colors border border-slate-600 hover:border-pink-500 focus:outline-none"
-              >
-                {opcao.texto}
-              </button>
-            ))}
-          </div>
-        ) : (
-          <div className="mt-8 flex flex-col items-center bg-slate-900/50 p-6 md:p-8 rounded-xl border border-slate-700">
-            <h2 className="text-3xl font-black mb-2 text-white">Jornada Concluída!</h2>
-            <p className="mb-8 text-slate-300 text-center">
-              Você acumulou um total de <span className="text-2xl font-bold text-pink-500">{calcularTotal()}</span> Símbolos de Proteção.
-            </p>
-            
-            <div className="w-full max-w-md flex flex-col gap-3">
-              <label className="text-sm font-bold text-slate-400 ml-1">Salve sua pontuação:</label>
-              <input 
-                type="text" 
-                placeholder="Seu nome ou apelido" 
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                className="w-full p-4 rounded-lg bg-slate-800 border border-slate-600 text-white focus:outline-none focus:border-pink-500 transition-colors"
-                maxLength={20}
-              />
-              <button 
-                onClick={salvarRanking}
-                disabled={loadingReq}
-                className="w-full p-4 mt-2 bg-pink-600 hover:bg-pink-500 disabled:bg-slate-700 disabled:text-slate-500 text-white rounded-lg font-bold transition-colors"
-              >
-                {loadingReq ? 'Salvando...' : 'Salvar no Ranking'}
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

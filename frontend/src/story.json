@@ -1,82 +1,271 @@
-[
-  {
-    "id": "cena_1",
-    "tipo": "situacao",
-    "imagem": "/assets/cena_1.jpg",
-    "texto": "Ana, casada com João há 5 anos, percebeu que ele começou a controlar todo o dinheiro da casa. Ele tomou seus cartões de crédito dizendo que ela não sabe administrar. Ele também a proibiu de trabalhar, afirmando que o lugar dela é em casa cuidando dos filhos. O que Ana deve fazer?",
-    "opcoes": [
-      {
-        "texto": "Aceitar a situação, pois ele é o provedor da casa e no fundo sabe o que é melhor.",
-        "proximaCenaId": "cena_2",
-        "efeito": {
-          "autonomia": -1,
-          "justica": -1
+{
+  "historias": [
+    {
+      "id": "ana",
+      "titulo": "A História da Ana",
+      "tema": "Violência Patrimonial",
+      "descricao": "Ana é controlada financeiramente pelo marido, que proíbe seu trabalho e retém seus cartões. Ajude-a a quebrar esse ciclo.",
+      "imagem_capa": "/assets/capa_ana.mp4",
+      "cenas": [
+        {
+          "id": "cena_1",
+          "tipo": "situacao",
+          "video": "/assets/cena_1_ana.mp4",
+          "texto": "Ana, casada com João há 5 anos, percebeu que ele começou a controlar todo o dinheiro da casa. Ele tomou seus cartões de crédito dizendo que ela não sabe administrar. Ele também a proibiu de trabalhar, afirmando que o lugar dela é em casa cuidando dos filhos. O que Ana deve fazer?",
+          "opcoes": [
+            {
+              "texto": "Aceitar a situação, pois ele é o provedor da casa e no fundo sabe o que é melhor.",
+              "proximaCenaId": "cena_2",
+              "efeito": {
+                "autonomia": -1,
+                "justica": -1
+              }
+            },
+            {
+              "texto": "Reconhecer que isso é violência patrimonial, negar-se a entregar os cartões e procurar ajuda especializada.",
+              "proximaCenaId": "cena_3",
+              "efeito": {
+                "conhecimento": 1,
+                "autonomia": 1,
+                "redeDeApoio": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "cena_2",
+          "tipo": "alerta",
+          "video": "/assets/cena_2_ana.mp4",
+          "texto": "Ana tentou conversar com sua família sobre a situação, mas foi desencorajada. Disseram que 'em briga de marido e mulher não se mete a colher' e que ela deveria ter paciência para não acabar com o casamento. Como ela reage?",
+          "opcoes": [
+            {
+              "texto": "Acreditar na família, aceitar que é 'normal' e continuar em silêncio.",
+              "proximaCenaId": "fim_negativo",
+              "efeito": {
+                "redeDeApoio": -1,
+                "respeito": -1
+              }
+            },
+            {
+              "texto": "Ignorar o julgamento familiar e buscar apoio na central de atendimento à mulher (Ligue 180).",
+              "proximaCenaId": "cena_3",
+              "efeito": {
+                "redeDeApoio": 2,
+                "conhecimento": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "cena_3",
+          "tipo": "protecao",
+          "video": "/assets/cena_3_ana.mp4",
+          "texto": "Ao ligar para o 180, Ana é orientada e encaminhada para um Centro de Referência de Atendimento à Mulher (CRAM). Lá, ela recebe suporte psicológico e jurídico para lidar com a situação com segurança.",
+          "opcoes": [
+            {
+              "texto": "Seguir com as orientações, pedir uma medida protetiva e buscar sua independência financeira.",
+              "proximaCenaId": "fim_positivo",
+              "efeito": {
+                "justica": 2,
+                "autonomia": 2,
+                "respeito": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "fim_positivo",
+          "tipo": "conhecimento",
+          "video": "/assets/fim_positivo_ana.mp4",
+          "texto": "Parabéns! Você guiou a Ana para um caminho de libertação e proteção. É fundamental reconhecer todas as formas de violência (física, psicológica, moral, sexual e patrimonial) e buscar a rede de apoio adequada. A Lei Maria da Penha existe para proteger você.",
+          "opcoes": []
+        },
+        {
+          "id": "fim_negativo",
+          "tipo": "conhecimento",
+          "video": "/assets/fim_negativo_ana.mp4",
+          "texto": "Infelizmente, a falta de conhecimento e de apoio manteve Ana presa no ciclo de violência. Lembre-se: violência patrimonial e psicológica também são crimes previstos na Lei Maria da Penha. Nunca hesite em buscar ajuda no 180.",
+          "opcoes": []
         }
-      },
-      {
-        "texto": "Reconhecer que isso é violência patrimonial, negar-se a entregar os cartões e procurar ajuda especializada.",
-        "proximaCenaId": "cena_3",
-        "efeito": {
-          "conhecimento": 1,
-          "autonomia": 1,
-          "redeDeApoio": 1
+      ]
+    },
+    {
+      "id": "maria",
+      "titulo": "A História da Maria",
+      "tema": "Violência Psicológica e Moral",
+      "descricao": "Maria sofre constantes humilhações públicas e controle excessivo de sua privacidade. Ajude-a a recuperar sua identidade.",
+      "imagem_capa": "/assets/capa_maria.mp4",
+      "cenas": [
+        {
+          "id": "cena_1",
+          "tipo": "situacao",
+          "video": "/assets/cena_1_maria.mp4",
+          "texto": "Durante um churrasco com amigos, o marido de Maria começa a debochar das roupas dela na frente de todos, chamando-a de brega e incapaz. Ela se encolhe de vergonha enquanto os outros ficam em silêncio constrangedor. O que Maria deve fazer?",
+          "opcoes": [
+            {
+              "texto": "Fingir que é brincadeira para não estragar a festa e tentar mudar seu jeito de se vestir depois.",
+              "proximaCenaId": "cena_2",
+              "efeito": {
+                "autonomia": -1,
+                "respeito": -1
+              }
+            },
+            {
+              "texto": "Perceber que humilhação pública é violência moral, repreender a atitude na mesma hora e ir embora.",
+              "proximaCenaId": "cena_3",
+              "efeito": {
+                "conhecimento": 1,
+                "autonomia": 2,
+                "respeito": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "cena_2",
+          "tipo": "alerta",
+          "video": "/assets/cena_2_maria.mp4",
+          "texto": "Dias depois, prestes a sair de casa para trabalhar, o marido bloqueia a porta e exige ver o celular de Maria de forma agressiva, insinuando traições inexistentes. Ela cede, perdendo completamente sua privacidade. Como agir?",
+          "opcoes": [
+            {
+              "texto": "Entregar o celular sempre para evitar brigas, acreditando que isso prova sua fidelidade.",
+              "proximaCenaId": "fim_negativo",
+              "efeito": {
+                "autonomia": -2,
+                "respeito": -2
+              }
+            },
+            {
+              "texto": "Entender que o controle obsessivo é violência psicológica e buscar ajuda num Centro de Referência (CREAS).",
+              "proximaCenaId": "cena_3",
+              "efeito": {
+                "redeDeApoio": 2,
+                "conhecimento": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "cena_3",
+          "tipo": "protecao",
+          "video": "/assets/cena_3_maria.mp4",
+          "texto": "Maria consegue buscar atendimento psicológico especializado. Na sessão, ela chora e desabafa, finalmente entendendo que não é culpada pelas agressões do marido e que precisa reconstruir sua autoestima.",
+          "opcoes": [
+            {
+              "texto": "Continuar o tratamento, cortar os laços de dependência emocional e denunciar as humilhações.",
+              "proximaCenaId": "fim_positivo",
+              "efeito": {
+                "justica": 2,
+                "autonomia": 2,
+                "redeDeApoio": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "fim_positivo",
+          "tipo": "conhecimento",
+          "video": "/assets/fim_positivo_maria.mp4",
+          "texto": "Você ajudou Maria a se libertar! A violência moral (calúnia, difamação e injúria) e a violência psicológica (diminuição da autoestima e controle) deixam marcas invisíveis, mas são crimes graves. O apoio psicológico foi fundamental.",
+          "opcoes": []
+        },
+        {
+          "id": "fim_negativo",
+          "tipo": "conhecimento",
+          "video": "/assets/fim_negativo_maria.mp4",
+          "texto": "Maria acabou perdendo sua própria identidade, aprisionada pelo abuso psicológico. Muitas mulheres sofrem sozinhas achando que humilhação 'é apenas o jeito dele'. A violência psicológica destrói a mulher de dentro para fora.",
+          "opcoes": []
         }
-      }
-    ]
-  },
-  {
-    "id": "cena_2",
-    "tipo": "alerta",
-    "imagem": "/assets/cena_2.jpg",
-    "texto": "Ana tentou conversar com sua família sobre a situação, mas foi desencorajada. Disseram que 'em briga de marido e mulher não se mete a colher' e que ela deveria ter paciência para não acabar com o casamento. Como ela reage?",
-    "opcoes": [
-      {
-        "texto": "Acreditar na família, aceitar que é 'normal' e continuar em silêncio.",
-        "proximaCenaId": "fim_negativo",
-        "efeito": {
-          "redeDeApoio": -1,
-          "respeito": -1
+      ]
+    },
+    {
+      "id": "clara",
+      "titulo": "A História de Clara",
+      "tema": "O Ciclo da Violência",
+      "descricao": "Clara vive o ciclo das agressões seguidas de falsos pedidos de perdão. Ela precisa de força para quebrar essa dinâmica.",
+      "imagem_capa": "/assets/capa_clara.mp4",
+      "cenas": [
+        {
+          "id": "cena_1",
+          "tipo": "situacao",
+          "video": "/assets/cena_1_clara.mp4",
+          "texto": "O marido de Clara teve um ataque de fúria desproporcional na cozinha, gritando e quebrando um prato de comida no chão. Clara se encolhe no canto, apavorada, temendo por sua integridade física. O que Clara deve fazer?",
+          "opcoes": [
+            {
+              "texto": "Acreditar que a culpa foi dela por algo que fez errado e esperar a raiva dele passar.",
+              "proximaCenaId": "cena_2",
+              "efeito": {
+                "autonomia": -1,
+                "respeito": -1
+              }
+            },
+            {
+              "texto": "Perceber a escalada da agressividade, sair de casa imediatamente em segurança e acionar a polícia.",
+              "proximaCenaId": "cena_3",
+              "efeito": {
+                "conhecimento": 1,
+                "justica": 2,
+                "redeDeApoio": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "cena_2",
+          "tipo": "alerta",
+          "video": "/assets/cena_2_clara.mp4",
+          "texto": "No dia seguinte, o marido aparece de joelhos com um enorme buquê de flores, implorando perdão e jurando que perdeu a cabeça e que nunca mais vai acontecer. Clara está confusa. Como ela deve reagir?",
+          "opcoes": [
+            {
+              "texto": "Perdoar e aceitar as flores, acreditando que ele realmente mudou e que foi apenas uma fase ruim.",
+              "proximaCenaId": "fim_negativo",
+              "efeito": {
+                "autonomia": -2,
+                "respeito": -2
+              }
+            },
+            {
+              "texto": "Reconhecer que essa é a clássica fase da 'Lua de Mel' do Ciclo da Violência, e manter a decisão de se afastar.",
+              "proximaCenaId": "cena_3",
+              "efeito": {
+                "redeDeApoio": 1,
+                "conhecimento": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "cena_3",
+          "tipo": "protecao",
+          "video": "/assets/cena_3_clara.mp4",
+          "texto": "Clara vai até a Delegacia de Defesa da Mulher (DDM). Com o apoio de uma policial preparada, ela formaliza a denúncia dos ataques de fúria e solicita oficialmente uma Medida Protetiva de Urgência.",
+          "opcoes": [
+            {
+              "texto": "Assinar os documentos, afastar-se definitivamente do agressor e focar na reconstrução de um lar seguro para seus filhos.",
+              "proximaCenaId": "fim_positivo",
+              "efeito": {
+                "justica": 2,
+                "autonomia": 2,
+                "respeito": 2
+              }
+            }
+          ]
+        },
+        {
+          "id": "fim_positivo",
+          "tipo": "conhecimento",
+          "video": "/assets/fim_positivo_clara.mp4",
+          "texto": "Clara quebrou o ciclo! O 'Ciclo da Violência' é formado por 3 fases: Aumento da Tensão, Ato de Violência e a fase de Arrependimento (Lua de Mel). Romper esse ciclo exige muita coragem e apoio policial e psicológico. Denuncie!",
+          "opcoes": []
+        },
+        {
+          "id": "fim_negativo",
+          "tipo": "conhecimento",
+          "video": "/assets/fim_negativo_clara.mp4",
+          "texto": "Clara aceitou o falso perdão e, inevitavelmente, o ciclo de violência voltou a acontecer de forma ainda mais grave. A fase da 'Lua de Mel' é apenas uma ferramenta de manipulação do agressor. Não se cale, denuncie 180.",
+          "opcoes": []
         }
-      },
-      {
-        "texto": "Ignorar o julgamento familiar e buscar apoio na central de atendimento à mulher (Ligue 180).",
-        "proximaCenaId": "cena_3",
-        "efeito": {
-          "redeDeApoio": 2,
-          "conhecimento": 1
-        }
-      }
-    ]
-  },
-  {
-    "id": "cena_3",
-    "tipo": "protecao",
-    "imagem": "/assets/cena_3.jpg",
-    "texto": "Ao ligar para o 180, Ana é orientada e encaminhada para um Centro de Referência de Atendimento à Mulher (CRAM). Lá, ela recebe suporte psicológico e jurídico para lidar com a situação com segurança.",
-    "opcoes": [
-      {
-        "texto": "Seguir com as orientações, pedir uma medida protetiva e buscar sua independência financeira.",
-        "proximaCenaId": "fim_positivo",
-        "efeito": {
-          "justica": 2,
-          "autonomia": 2,
-          "respeito": 2
-        }
-      }
-    ]
-  },
-  {
-    "id": "fim_positivo",
-    "tipo": "conhecimento",
-    "imagem": "/assets/fim_positivo.jpg",
-    "texto": "Parabéns! Você guiou a Ana para um caminho de libertação e proteção. É fundamental reconhecer todas as formas de violência (física, psicológica, moral, sexual e patrimonial) e buscar a rede de apoio adequada. A Lei Maria da Penha existe para proteger você.",
-    "opcoes": []
-  },
-  {
-    "id": "fim_negativo",
-    "tipo": "conhecimento",
-    "imagem": "/assets/fim_negativo.jpg",
-    "texto": "Infelizmente, a falta de conhecimento e de apoio manteve Ana presa no ciclo de violência. Lembre-se: violência patrimonial e psicológica também são crimes previstos na Lei Maria da Penha. Nunca hesite em buscar ajuda no 180.",
-    "opcoes": []
-  }
-]
+      ]
+    }
+  ]
+}

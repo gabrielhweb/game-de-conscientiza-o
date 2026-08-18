@@ -66,7 +66,7 @@ const ChromaVideo: React.FC<ChromaVideoProps> = ({ src, className }) => {
         loop
         muted
         playsInline
-        className="hidden" // Esconde o vídeo real
+        className="absolute w-px h-px opacity-0" // Esconde sem display:none para o navegador não pausar
         crossOrigin="anonymous"
       />
       <canvas
